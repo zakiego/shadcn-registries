@@ -10,6 +10,7 @@
 - Card is a single clickable link to the registry homepage (origin of the template URL).
 - Search input filters by registry name, template URL, or hostname.
 - Responsive grid: 1/2/3/4 columns across breakpoints.
+- Source link: A "Source JSON" badge under the page description opens the raw JSON in a new tab. Visible on loading, error, and loaded states.
 
 ### Files
 

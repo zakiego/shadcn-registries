@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
 
 const DATA_URL =
   'https://raw.githubusercontent.com/shadcn-ui/ui/refs/heads/main/apps/v4/public/r/registries.json'
@@ -69,6 +70,19 @@ function IndexPage() {
         Click a registry to open an example endpoint in a new tab.
       </p>
 
+      <div className="mb-6 flex items-center justify-center">
+        <Badge asChild variant="outline">
+          <a
+            href={DATA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open source JSON in a new tab"
+          >
+            Source JSON
+          </a>
+        </Badge>
+      </div>
+
       <div className="max-w-md mx-auto mb-6">
         <Input
           placeholder="Search registries..."
@@ -117,6 +131,18 @@ function IndexPending() {
       <p className="text-sm text-muted-foreground mb-6 text-center">
         Loading registries…
       </p>
+      <div className="mb-6 flex items-center justify-center">
+        <Badge asChild variant="outline">
+          <a
+            href={DATA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open source JSON in a new tab"
+          >
+            Source JSON
+          </a>
+        </Badge>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {Array.from({ length: 12 }).map((_, i) => (
           <Skeleton key={i} className="h-28 rounded-xl" />
@@ -135,6 +161,18 @@ function IndexError({ error }: { error: unknown }) {
         <AlertTitle>Failed to load registries</AlertTitle>
         <AlertDescription>{message}</AlertDescription>
       </Alert>
+      <div className="flex items-center justify-center">
+        <Badge asChild variant="outline">
+          <a
+            href={DATA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open source JSON in a new tab"
+          >
+            Source JSON
+          </a>
+        </Badge>
+      </div>
     </div>
   )
 }
