@@ -7,7 +7,8 @@
 
 - Index page fetches and lists registries as cards.
 - Card shows the registry key and the template URL.
-- Clicking a card opens an example endpoint in a new tab using `{name} = button`.
+- Card is a single clickable link to the registry homepage (origin of the template URL).
+- Search input filters by registry name, template URL, or hostname.
 - Responsive grid: 1/2/3/4 columns across breakpoints.
 
 ### Files
@@ -17,6 +18,5 @@
 
 ### Future Enhancements
 
-- Search/filter by registry key.
 - Copy template URL.
 - Choose sample `{name}` (default `button`).

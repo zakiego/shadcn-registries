@@ -1,7 +1,9 @@
+import * as React from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Input } from '@/components/ui/input'
 
 const DATA_URL =
   'https://raw.githubusercontent.com/shadcn-ui/ui/refs/heads/main/apps/v4/public/r/registries.json'
@@ -9,7 +11,7 @@ const DATA_URL =
 type Registry = {
   name: string
   template: string
-  href: string
+  href: string // homepage
 }
 
 async function loadRegistries(): Promise<Registry[]> {
@@ -34,6 +36,26 @@ export const Route = createFileRoute('/')({
 
 function IndexPage() {
   const registries = Route.useLoaderData() as Registry[]
+  const [query, setQuery] = React.useState('')
+
+  const filtered = React.useMemo(() => {
+    const q = query.trim().toLowerCase()
+    if (!q) return registries
+    return registries.filter((r) => {
+      const host = (() => {
+        try {
+          return new URL(r.href).hostname
+        } catch {
+          return ''
+        }
+      })()
+      return (
+        r.name.toLowerCase().includes(q) ||
+        r.template.toLowerCase().includes(q) ||
+        host.toLowerCase().includes(q)
+      )
+    })
+  }, [registries, query])
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -42,31 +64,43 @@ function IndexPage() {
         Click a registry to open an example endpoint in a new tab.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {registries.map((r) => (
-          <a
-            key={r.name}
-            href={r.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Open ${r.name} registry`}
-            className="block hover:no-underline"
-          >
-            <Card className="h-full transition-transform hover:shadow-md hover:-translate-y-0.5">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold break-all">
-                  {r.name}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <code className="text-xs text-muted-foreground break-all">
-                  {r.template}
-                </code>
-              </CardContent>
-            </Card>
-          </a>
-        ))}
+      <div className="max-w-md mx-auto mb-6">
+        <Input
+          placeholder="Search registries..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
       </div>
+
+      {filtered.length === 0 ? (
+        <p className="text-center text-sm text-muted-foreground">No results.</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {filtered.map((r) => (
+            <a
+              key={r.name}
+              href={r.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${r.name} homepage`}
+              className="block hover:no-underline"
+            >
+              <Card className="h-full transition-transform hover:shadow-md hover:-translate-y-0.5">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-base font-semibold break-all">
+                    {r.name}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <code className="text-xs text-muted-foreground break-all">
+                    {r.template}
+                  </code>
+                </CardContent>
+              </Card>
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
