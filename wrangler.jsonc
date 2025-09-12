@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "main": ".output/server/index.mjs",
-  "compatibility_date": "2025-07-05",
+  "compatibility_date": "2025-09-01",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "directory": ".output/public",
@@ -11,4 +11,10 @@
   },
   "account_id": "4ff140db4fae29f31ae5f481dc6fb6a4",
   "name": "shadcn-registries",
+  "routes": [
+    {
+      "custom_domain": true,
+      "pattern": "shadcn.zakiego.com",
+    }
+  ]
 }
