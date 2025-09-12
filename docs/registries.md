@@ -20,3 +20,11 @@
 
 - Copy template URL.
 - Choose sample `{name}` (default `button`).
+
+### Homepage Overrides
+
+Some registries have friendlier landing pages than their raw origin. We override the computed homepage (`new URL(template).origin + '/'`) for specific origins.
+
+Current overrides:
+
+- `https://registry.ai-sdk.dev` → `https://ai-sdk.dev/elements/overview`

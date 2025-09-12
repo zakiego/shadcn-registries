@@ -14,16 +14,21 @@ type Registry = {
   href: string // homepage
 }
 
+// Map specific registry origins to a more helpful homepage URL
+const HOMEPAGE_OVERRIDES: Record<string, string> = {
+  'https://registry.ai-sdk.dev': 'https://ai-sdk.dev/elements/overview',
+}
+
 async function loadRegistries(): Promise<Registry[]> {
   const res = await fetch(DATA_URL)
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   const data = (await res.json()) as Record<string, string>
   return Object.entries(data)
-    .map(([name, template]) => ({
-      name,
-      template,
-      href: new URL(template).origin + '/',
-    }))
+    .map(([name, template]) => {
+      const origin = new URL(template).origin
+      const href = HOMEPAGE_OVERRIDES[origin] ?? origin + '/'
+      return { name, template, href }
+    })
     .sort((a, b) => a.name.localeCompare(b.name))
 }
 
