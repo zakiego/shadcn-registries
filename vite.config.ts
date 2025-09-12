@@ -14,6 +14,14 @@ const config = defineConfig({
     tanstackStart({
       target: "cloudflare-module",
       customViteReactPlugin: true,
+      pages: [
+        {
+          path: "/",
+          prerender: {
+            enabled: true,
+          }
+        }
+      ]
     }),
     viteReact(),
   ],
