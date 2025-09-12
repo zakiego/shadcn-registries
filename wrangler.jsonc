@@ -11,11 +11,4 @@
   },
   "account_id": "4ff140db4fae29f31ae5f481dc6fb6a4",
   "name": "shadcn-registries",
-
-  "routes": [
-    {
-      "custom_domain": true,
-      "pattern": "shadcn.zakiego.com",
-    }
-  ]
 }

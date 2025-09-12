@@ -28,7 +28,6 @@ export const Route = createRootRoute({
         content:
           'Browse Shadcn UI community registries. Click a card to open the registry homepage.',
       },
-      { property: 'og:image', content: '/logo512.png' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: 'Shadcn Registries' },
       {
@@ -36,17 +35,12 @@ export const Route = createRootRoute({
         content:
           'Browse Shadcn UI community registries. Click a card to open the registry homepage.',
       },
-      { name: 'twitter:image', content: '/logo512.png' },
-      { name: 'theme-color', content: '#ffffff' },
     ],
     links: [
       {
         rel: 'stylesheet',
         href: appCss,
       },
-      { rel: 'icon', href: '/favicon.ico' },
-      { rel: 'apple-touch-icon', href: '/logo192.png' },
-      { rel: 'manifest', href: '/manifest.json' },
     ],
   }),
 
